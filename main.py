@@ -1,14 +1,19 @@
 
 
-
 class AbstractRepr:
-    
-    def __repr__(self):
-        name = self.__class__
-        properties = [i for i in self.__dict__ if i[:2] != "__"]
+
+    def get_properties(self):
+        properties = [i for i in self.__dict__ if i[:2] != ["__"] or i[0] != "_"]
         properties_string = ""
         for i in properties:
             properties_string = properties_string + f"{i}: {self.__dict__[i]} "
+
+        return properties_string
+        
+    
+    def __repr__(self):
+        name = str(self.__class__).split(".")[1][:-2:1]
+        properties_string = self.get_properties()
         return f"[{name}] {properties_string}"
         
 
@@ -29,7 +34,8 @@ class Person(AbstractRepr):
 if __name__ == "__main__":
     oleg = Person("Oleg Molchanov", "dev", 20000)
     alex = Person("Alex Romanov", "manager", 15000)
+    sue = Person("Sue Jones", "dev", 70000)
     
-    for pers in (oleg, alex):
+    for pers in (oleg, alex, sue):
         pers.raise_pay()
         print(pers)
