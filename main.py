@@ -17,7 +17,7 @@ class AbstractRepr:
 
 
 class Person(AbstractRepr):
-    def __init__(self, name, job, pay):
+    def __init__(self, name, job, pay):  # init block
         self.name = name
         self.job = job
         self.pay = pay
